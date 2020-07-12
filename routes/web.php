@@ -42,7 +42,7 @@ Route::get('/contact', function() {
     return view('pages.contact');
 })->name('contact');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index');
 Route::get('/profile', 'UserController@profile')->name('profile');
 Route::get('/profile/edit', 'UserController@edit')->name('edit-profile');
 Route::post('/profile/edit', 'UserController@update')->name('update-profile');
@@ -73,11 +73,14 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['auth', 'admin', 'verified'
 // Admin Group&NameSpace
 Route::group(['prefix' => 'todos/', 'middleware' => ['auth', 'verified']], function(){
     
-    Route::get('/', 'TodoController@index');
-    Route::get('/create', 'TodoController@create');
-    Route::get('/edit', 'TodoController@edit');
-    Route::post('/store', 'TodoController@store');
-
+    Route::get('/', 'TodoController@index')->name('todos.index');
+    Route::get('/create', 'TodoController@create')->name('todos.create');
+    Route::post('/store', 'TodoController@store')->name('todos.store');
+    Route::get('/edit/{todo}', 'TodoController@edit')->name('todos.edit');
+    Route::patch('/{todo}', 'TodoController@update')->name('todos.update');
+    Route::get('/delete/{todo}', 'TodoController@destroy')->name('todos.destroy');
+    Route::put('/complete/{todo}', 'TodoController@complete')->name('todo.complete');
+    Route::delete('/incomplete/{todo}', 'TodoController@incomplete')->name('todo.incomplete');
 
 });
 

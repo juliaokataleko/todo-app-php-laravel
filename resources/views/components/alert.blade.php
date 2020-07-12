@@ -9,10 +9,10 @@
     @endif
 
     @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
+    <div>
+        <ul class="list-group">
             @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
+            <li class="list-group-item bg-maroon" style="color: red">{{ $error }}</li>
             @endforeach
         </ul>
     </div>

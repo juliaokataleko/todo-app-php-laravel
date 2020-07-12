@@ -8,9 +8,9 @@
         
         <div class="col-sm-3">
             <?php
-            if(!null == Auth::user()->avatar && file_exists('uploads/avatar/'.Auth::user()->avatar)): ?>
+            if(!null == Auth::user()->avatar && file_exists('storage/images/'.Auth::user()->avatar)): ?>
                 <img style="width: 100%; object-fit: cover; " 
-                src="{{ BASE_URL }}/uploads/avatar/{{ Auth::user()->avatar }}" 
+                src="{{ BASE_URL }}/storage/images/{{ Auth::user()->avatar }}" 
                 class="rounded mb-4 border" alt="...">
             <?php else: ?>
                 <img style="width: 100%; max-width: 220px;" src="{{ BASE_URL }}/images/person.png" 
@@ -18,12 +18,12 @@
             <?php endif; ?>
         </div>
         <div class="col-sm-8">
-            <h3>Editar Foto de Perfil</h3>
-            <form enctype="multipart/form-data" action="{{ BASE_URL }}/profile/photo" method="post">
+            <h3>Edit avatar</h3>
+            <form enctype="multipart/form-data" action="{{ BASE_URL }}/upload" method="post">
                 @csrf
                 <div class="custom-file">
                 <input type="file" class="custom-file-input" 
-                id="validatedCustomFile" name="photo" required>
+                id="validatedCustomFile" name="file" required>
                 <label class="custom-file-label" 
                 for="validatedCustomFile">Escolhe uma foto...</label>
                 <div class="invalid-feedback">

@@ -23,14 +23,17 @@
     <script defer src="{{ asset('js/script.js') }}"></script>
 </head>
 <style>
+    html, body {
+        height: 100% !important;
+    }
     body {
         font-family: arial;
     }
 </style>
-<body id="" style="margin-top:3em; background: #fff; ">
+<body>
     
-    <nav class="navbar fixed-top navbar-expand 
-    navbar-light border-bottom" style="background: #fff"> 
+    <nav class="navbar navbar-expand 
+    navbar-dark" style="background: #0c8339; height: 3em;"> 
         <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
             <i class="fa fa-home"></i> {{ env('APP_NAME') }}
@@ -43,7 +46,6 @@
              </ul>
 
              <ul class="navbar-nav">
-
 
                 @guest
                 <li class="nav-item">
@@ -60,22 +62,7 @@
                 <li class="nav-item active"> 
                     <a class="nav-link" href="{{ BASE_URL }}/profile" 
                     data-abc="true" 
-                    title="{{ Auth::user()->name }}"> 
-
-                        <?php
-                    if(!null == Auth::user()->avatar && file_exists('storage/images/'.Auth::user()->avatar)): ?>
-                        <img style="width: 20px; height: 25px;
-                    border: 1px solid #048ae4; padding: 0; margin: 0; margin-top: -4.5px;
-                    object-fit: cover; " 
-                    src="{{ asset(BASE_URL.'/storage/images/'.Auth::user()->avatar) }}"
-                            class="rounded" alt="...">
-                        <?php else: ?>
-                        <img style="width: 20px; height: 25px;" 
-                        src="{{ BASE_URL }}/images/person.png"
-                            class="rounded border" alt="...">
-                        <?php endif; ?>
-                   
-                    {{ fullNameToFirstName(Auth::user()->name) }} </span></a> 
+                    title="{{ Auth::user()->name }}"> <i class="fa fa-cog"></i> </a> 
                 </li>
                 @if(Auth::check() && Auth::user()->role == 1) 
                 <li class="nav-item active desktop"> 
@@ -91,14 +78,20 @@
         </div>
     </nav>
 
-    <div id="">
+    <div id="" class="" style="min-height: calc(100% - 3em) !important; 
+    display: flex; 
+    justify-content: center; flex-direction: column; 
+    background: #fff; align-items: center; ">
 
-        <div class="py-1" style="min-height: 80vh; width: 95%; 
-        max-width: 700px; margin: 0 auto;">
+        <div class="p-3" style="max-width: 570px; height: 100%;
+        display: flex; 
+    justify-content: center; flex-direction: column; align-items: center
+        margin: 0 auto;">
+        <x-alert />
             @yield('content')
         </div>
 
     </div>
-    @include('includes.footer')
+    {{--  @include('includes.footer')  --}}
 </body>
 </html>

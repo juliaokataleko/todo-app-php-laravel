@@ -3,7 +3,7 @@
 @section('title', config('app.name', 'Laravel').' - Editar Minha Conta')
 
 @section('content')
-<div class="container mt-4 " style="width: 95%">
+<div>
     <div class="card">
         <div class="card-body">
             @if(Session::has('success'))

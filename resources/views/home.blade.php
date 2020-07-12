@@ -4,13 +4,9 @@
 
 @section('content')
 
-<div class="container mt-3">
+<div class="container mt-3" style="display: none">
     <div class="card">
         <div class="card-body">
-
-            <x-alert>
-                <p>Here is response for image upload</p>
-            </x-alert>
 
             <form action="/upload" method="post" enctype="multipart/form-data">
                 @csrf
@@ -20,6 +16,15 @@
             </form>
         </div>
     </div>
+</div>
+
+<div class="items">
+    <a href="{{ BASE_URL }}/todos">
+    <button class="btn btn-primary p-3"> 
+        <i class="fa fa-tasks"></i> <br> Tarefas </button>
+    </a>
+    <button class="btn btn-danger p-3"> <i class="fa fa-phone"></i> <br> Telefone </button>
+    <button class="btn btn-success p-3">  <i class="fa fa-money-check"></i> <br> Finanças </button>
 </div>
 
 @endsection
