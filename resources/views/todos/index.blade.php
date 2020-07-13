@@ -3,28 +3,34 @@
 @section('title', Auth::user()->name .' - '.config('app.name', 'Laravel'))
 
 @section('content')
-<div class="mt-1 pt-3 border p-3 text-center">
+<div class="mt-1 text-center d-block">
 
-    <div class="d-flex pb-3 justify-content-between align-items-center">
-        <p class="mt-2">My todos list</p>
-        <a href="{{ route('todos.create') }}" class="btn btn-success"> <i class="fa fa-plus-circle"></i> </a>
+    <div 
+    style=""
+    class="d-flex mb-2 btn btn-primary border justify-content-between 
+    align-items-center"  style="width: 100%">
+        <span class="">My todos list</span>
+        <a href="{{ route('todos.create') }}" class="btn btn-success" 
+        style=""> <i class="fa fa-plus-circle"></i> </a>
     </div>
 
     @if(count($todos) > 0)
-    <ul style="" class="list-group pb-3 text-left border-left-0 border-right-0">
+    <ul style="" class="list-group text-left mb-2 border-left-0 border-right-0">
         @foreach($todos as $key => $todo)
         <li class="list-group-item" style="display: flex; flex-direction: row; 
             justify-content: space-between; align-items: center; important">
 
             @include('includes.complete-button')
-            
+
             <span class="ml-3" style="width: calc(100% - 100px); 
                 max-height: 3em; 
                 overflow: hidden;">
                 @if($todo->completed)
-                <p class="line-through" style="text-decoration: line-through">{{ $todo->title }}</p>
+                <p class="line-through" 
+                style="text-decoration: line-through">
+                <a href="{{ route('todos.show', $todo->id) }}">{{ $todo->title }}</a> </p>
                 @else
-                    {{ $todo->title }}     
+                <a href="{{ route('todos.show', $todo->id) }}">{{ $todo->title }}</a>   
                 @endif
             </span>
 
@@ -50,7 +56,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <a href="{{ route('todos.destroy', $todo->id) }}"><button type="button" class="btn btn-primary">Delete</button></a>
+                                <a href="{{ route('todo.destroy', $todo->id) }}"><button type="button" class="btn btn-primary">Delete</button></a>
                             </div>
                         </div>
                     </div>
@@ -62,6 +68,8 @@
         @endforeach
     </ul>
     {{ $todos->links() }}
+    @else
+    <p>No tasks available. Create Now!</p>
     @endif
 </div>
 

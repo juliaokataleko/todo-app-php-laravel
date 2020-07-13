@@ -3,12 +3,12 @@
 @section('title', Auth::user()->name .' - '.config('app.name', 'Laravel'))
 
 @section('content')
-<div class=" mt-4 text-center pt-3">
-    <a href="{{ BASE_URL }}/todos" class="btn btn-outline-dark mb-3 form-control"> <i class="fa fa-arrow-alt-circle-left"></i> Back</a>
-    <h1 class="text-2x1">Update this todo list</h1>
+<div class="text-center pt-3">
+    <a href="{{ BASE_URL }}/todos" class="btn btn-outline-dark mb-3 
+    form-control"> <i class="fa fa-arrow-left"></i> Back</a>
+    <h3 class="text-2x1">Update this todo list</h3>
     <h2>{{ $todo->title }} </h2>
 
-    
     <form class="py-2" action="{{ route('todos.update', $todo->id) }}" method="post">
         @csrf
         @method('patch')
@@ -21,10 +21,20 @@
               type="submit">Update</button>
             </div>
           </div>
-
-        <input type="hidden" name="user_id" value="{{ Auth::id() }}">
-     
-    </form>
+          <textarea name="description" id="description" 
+    placeholder="Description" 
+    class="form-control">{{ $todo->description }}</textarea>
+    
+    <div class="p-2 border mt-3">
+      <h4>Steps</h4>
+      @livewire('edit-step', ['steps' => $todo->steps])
+    </div>
+  
+  </form>
 </div>
+
+<script>
+  CKEDITOR.replace('description');
+</script>
 
 @endsection

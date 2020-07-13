@@ -32,7 +32,7 @@ Route::get('email/resend', 'Auth\VerificationController@resend')->name('verifica
 
 Route::any('recover', 'HomeController@recover');
 
-Route::get('/', 'HomeController@index')->name('home');
+
 Route::get('/about', function() {
     return view('pages.about');
 })->name('about');
@@ -42,10 +42,11 @@ Route::get('/contact', function() {
     return view('pages.contact');
 })->name('contact');
 
-Route::get('/home', 'HomeController@index');
-Route::get('/profile', 'UserController@profile')->name('profile');
-Route::get('/profile/edit', 'UserController@edit')->name('edit-profile');
-Route::post('/profile/edit', 'UserController@update')->name('update-profile');
+Route::get('/', 'HomeController@index')->name('home')->middleware('auth');
+Route::get('/home', 'HomeController@index')->middleware('auth');
+Route::get('/profile', 'UserController@profile')->name('profile')->middleware('auth');
+Route::get('/profile/edit', 'UserController@edit')->name('edit-profile')->middleware('auth');
+Route::post('/profile/edit', 'UserController@update')->name('update-profile')->middleware('auth');
 
 Route::post('/profile/change-password', 'UserController@changePassword')->name('password_update');
 
@@ -71,17 +72,24 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['auth', 'admin', 'verified'
 });
 
 // Admin Group&NameSpace
-Route::group(['prefix' => 'todos/', 'middleware' => ['auth', 'verified']], function(){
+// Route::group(['prefix' => 'todos/', 'middleware' => ['auth', 'verified']], function(){
     
-    Route::get('/', 'TodoController@index')->name('todos.index');
-    Route::get('/create', 'TodoController@create')->name('todos.create');
-    Route::post('/store', 'TodoController@store')->name('todos.store');
-    Route::get('/edit/{todo}', 'TodoController@edit')->name('todos.edit');
-    Route::patch('/{todo}', 'TodoController@update')->name('todos.update');
-    Route::get('/delete/{todo}', 'TodoController@destroy')->name('todos.destroy');
-    Route::put('/complete/{todo}', 'TodoController@complete')->name('todo.complete');
-    Route::delete('/incomplete/{todo}', 'TodoController@incomplete')->name('todo.incomplete');
+//     Route::get('/', 'TodoController@index')->name('todos.index');
+//     Route::get('/create', 'TodoController@create')->name('todos.create');
+//     Route::post('/store', 'TodoController@store')->name('todos.store');
+//     Route::get('/edit/{todo}', 'TodoController@edit')->name('todos.edit');
+//     Route::patch('/{todo}', 'TodoController@update')->name('todos.update');
+//     Route::get('/delete/{todo}', 'TodoController@destroy')->name('todos.destroy');
+//     Route::put('/complete/{todo}', 'TodoController@complete')->name('todo.complete');
+//     Route::delete('/incomplete/{todo}', 'TodoController@incomplete')->name('todo.incomplete');
 
+// });
+
+Route::middleware('auth')->group(function() {
+    Route::resource('/todos', 'TodoController');
+    Route::put('/complete/{todo}', 'TodoController@complete')->name('todo.complete');
+    Route::delete('/incomplete/{todo}', 'TodoController@incomplete')->name('todo.incomplete'); 
+    Route::get('/delete/{todo}', 'TodoController@destroy')->name('todo.destroy');   
 });
 
 Route::get('/account_confirm', 'HomeController@account_confirm');
@@ -89,3 +97,6 @@ Route::any('/mail_resend', 'HomeController@resend_verification');
 Route::post('/user/register', 'HomeController@register');
 
 Route::post('/upload', 'UserController@uploadAvatar');
+Route::get('help', function () {
+    echo 'help';
+})->name('help');

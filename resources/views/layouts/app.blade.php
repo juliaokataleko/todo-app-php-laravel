@@ -21,6 +21,10 @@
     <link rel="icon" type="image/png" href="{{ asset('/images/logo.png') }}" />
     <script src="{{ asset('js/app.js') }}"></script>
     <script defer src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ asset('plugins/ckeditor/ckeditor.js') }}"></script>
+
+    @livewireStyles
+
 </head>
 <style>
     html, body {
@@ -32,11 +36,11 @@
 </style>
 <body>
     
-    <nav class="navbar navbar-expand 
-    navbar-dark" style="background: #0c8339; height: 3em;"> 
+    <nav class="navbar navbar-expand fixed-top 
+    navbar-light bg-white border-bottom " style="height: 3em;"> 
         <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
-            <i class="fa fa-home"></i> {{ env('APP_NAME') }}
+            <i class="fa fa-bars"></i> {{ env('APP_NAME') }}
         </a> 
         
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
@@ -58,12 +62,14 @@
                 @endif
                 @else
                 <li class="nav-item active"> 
-                    <a class="nav-link" href="{{ BASE_URL }}/todos">Todos</a></li>
+                    <a class="nav-link" href="{{ BASE_URL }}"><i class="fa fa-home"></i></a></li>
                 <li class="nav-item active"> 
                     <a class="nav-link" href="{{ BASE_URL }}/profile" 
                     data-abc="true" 
                     title="{{ Auth::user()->name }}"> <i class="fa fa-cog"></i> </a> 
                 </li>
+                <li class="nav-item active"> 
+                    <a class="nav-link" href="{{ BASE_URL }}"><i class="fa fa-search"></i></a></li>
                 @if(Auth::check() && Auth::user()->role == 1) 
                 <li class="nav-item active desktop"> 
                     <a class="nav-link" href="{{ BASE_URL }}/admin" 
@@ -79,19 +85,19 @@
     </nav>
 
     <div id="" class="" style="min-height: calc(100% - 3em) !important; 
-    display: flex; 
-    justify-content: center; flex-direction: column; 
-    background: #fff; align-items: center; ">
+    display: flex; justify-content: center; align-items: center;
+     flex-direction: column; overflow: auto;
+    background: #fff; ">
 
-        <div class="p-3" style="max-width: 570px; height: 100%;
-        display: flex; 
-    justify-content: center; flex-direction: column; align-items: center
-        margin: 0 auto;">
-        <x-alert />
+        <div class="p-3 pt-4 container" style="height: 100%; display: flex; 
+        flex-direction: column; 
+        margin: 0 auto; margin-top: 2em;">
+            <x-alert />
             @yield('content')
         </div>
 
     </div>
     {{--  @include('includes.footer')  --}}
+    @livewireScripts
 </body>
 </html>

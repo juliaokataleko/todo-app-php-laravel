@@ -4,27 +4,29 @@
 
 @section('content')
 
-<div class="container mt-3" style="display: none">
-    <div class="card">
-        <div class="card-body">
-
-            <form action="/upload" method="post" enctype="multipart/form-data">
-                @csrf
-                <input type="file" name="file" id="">
-                <button class="btn btn-primary" 
-                type="submit">Upload</button>
-            </form>
-        </div>
+<div class="row">
+    <div class="col-4 text-center">
+        <a href="{{ BASE_URL }}/todos" style="text-decoration: none">
+            <button class="btn btn-primary p-2"> 
+                <i class="fa fa-tasks"></i> <br> <span class="desktop">Tasks</span>  </button>
+            </a>
     </div>
-</div>
 
-<div class="items">
-    <a href="{{ BASE_URL }}/todos">
-    <button class="btn btn-primary p-3"> 
-        <i class="fa fa-tasks"></i> <br> Tarefas </button>
-    </a>
-    <button class="btn btn-danger p-3"> <i class="fa fa-phone"></i> <br> Telefone </button>
-    <button class="btn btn-success p-3">  <i class="fa fa-money-check"></i> <br> Finanças </button>
+    <div class="col-4 text-center">
+        <a href="{{ BASE_URL }}/todos" style="text-decoration: none">
+            <button class="btn btn-primary p-2"> 
+                <i class="fa fa-money-bill-wave-alt"></i> <br> <span class="desktop">Finances</span>  </button>
+            </a>
+    </div>
+
+    <div class="col-4 text-center">
+        <a href="{{ BASE_URL }}/todos" style="text-decoration: none">
+            <button class="btn btn-primary p-2"> 
+                <i class="fa fa-edit"></i> <br> <span class="desktop">Posts</span>  </button>
+            </a>
+    </div>
+    
+ 
 </div>
 
 @endsection

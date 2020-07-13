@@ -64,7 +64,12 @@ class User extends Authenticatable implements MustVerifyEmail
     protected function deleteOldImage()
     {
         if ($this->avatar) :
-            Storage::delete('/public/images/' . $this->avatar);
+            Storage::delete('/storage/images/' . $this->avatar);
         endif;
+    }
+
+    public function todos()
+    {
+        return $this->hasMany(Todo::class)->orderBy('completed');
     }
 }
